@@ -250,6 +250,101 @@ export const GetAllContactusDocument = gql`
 }
     `;
 
+    export type GetAllProductsQuery = {
+      __typename?: 'Query';
+      getAllProduct: {
+        __typename?: 'PaginatedProduct';
+        length: number;
+        error?: { 
+          __typename?: 'FieldError'; 
+          field: string; 
+          message: string 
+        } | null;
+        items?: Array<{
+          __typename?: 'Product';
+          _id: string;
+          createdAt: any;
+          title: string;
+          description: string;
+          quantity: number;
+          images: string[];
+        }> | null;
+      };
+    };
+
+    export type GetAllProductsQueryVariables = {
+      page: number;
+      limit: number;
+      searchFields: {
+        fields: Array<ProductSearchFields>;
+        q: string;
+      };
+      sort: {
+        field: ProductSearchFields;
+        order?: Sorting;
+      };
+      filters?: Scalars['ProductFilter']['input'];
+    };
+    
+    
+    export const GetAllProductsDocument = gql`
+    query GetAllProducts($page: PositiveInt!, $limit: PositiveInt!, $searchFields: SearchProductFields!, $sort: SortProductArgs!, $filters: ProductFilter) {
+      getAllProduct(
+        page: $page
+        limit: $limit
+        searchFields: $searchFields
+        sort: $sort
+        filters: $filters
+      ) {
+        error {
+          field
+          message
+        }
+        length
+        items {
+          _id
+          createdAt
+          title
+          description
+          quantity
+          images
+        }
+      }
+    }
+  `;
+
+  export const GetProductByIdDocument = gql`
+  query GetProductById($id: ObjectID!) {
+    getProduct(_id: $id) {
+      item {
+        _id
+        title
+        description
+        quantity
+        images
+        createdAt
+        updatedAt
+      }
+      error {
+        field
+        message
+      }
+    }
+  }
+`;
+
+export function useGetProductByIdQuery(baseOptions: { variables: { id: string; }; }) {
+  return Apollo.useQuery(GetProductByIdDocument, {
+    ...baseOptions,
+  });
+}
+  
+  export function useGetAllProductsQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetAllProductsQuery, GetAllProductsQueryVariables>) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return ApolloReactHooks.useQuery<GetAllProductsQuery, GetAllProductsQueryVariables>(GetAllProductsDocument, options);
+  }
+  
+
 /**
  * __useGetAllContactusQuery__
  *

@@ -11,6 +11,21 @@ export default function Home() {
           >
             All Contacts
           </Link>
+
+          <Link
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            href="/all-products?page=1&limit=4"
+          >
+            All Products
+          </Link>
+
+          <Link
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            href="/create-contact"
+          >
+            Create Contact
+          </Link>
+
         </div>
 
         <h1 className="text-3xl font-semibold">
