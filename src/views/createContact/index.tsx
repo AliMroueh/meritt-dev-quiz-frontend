@@ -3,25 +3,7 @@
 import { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/navigation';
-
-// GraphQL Mutation
-const CREATE_CONTACTUS = gql`
-  mutation CreateContactus($input: ContactUsCreateInput!) {
-    createContactus(input: $input) {
-      item {
-        _id
-        full_name
-        phone_number
-        subject
-        body
-      }
-      error {
-        field
-        message
-      }
-    }
-  }
-`;
+import { CREATE_CONTACTUS } from '@/graphql/mutation';
 
 function Index() {
   const [fullName, setFullName] = useState('');
